@@ -24,3 +24,12 @@ compatible with ESP8266 and ESP32
     pio run --target upload
     ```
 4. Check for server address in serial monitor
+
+## Purpose
+
+### Arduino program
+1. simple API examples
+2. React server
+
+### React app
+1. control LED via API
