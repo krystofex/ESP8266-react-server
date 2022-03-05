@@ -1,6 +1,4 @@
-# React server on Espressif
-
-compatible with ESP8266 and ESP32
+# React server on ESP8266
 
 ## Setup
 1. build React app 

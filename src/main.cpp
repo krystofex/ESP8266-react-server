@@ -1,15 +1,10 @@
 #include <Arduino.h>
 
-#include <DNSServer.h>
-#ifdef ESP32
-#include <WiFi.h>
-#include <AsyncTCP.h>
-#elif defined(ESP8266)
+#include <DNSServer.h> 
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
-#endif
+#include "LittleFS.h" 
 
-#include "LittleFS.h"
 #include "ESPAsyncWebServer.h"
 
 #include "config.h"
@@ -38,7 +33,7 @@ void setup()
   {
     Serial.println("Failed to open file for reading");
     return;
-  };
+  }; 
 
   // connect wifi
   WiFi.begin(ssid, password);
@@ -54,7 +49,7 @@ void setup()
 
   // server config
   // React app
-  server.serveStatic("/web/", LittleFS, "/build");
+  server.serveStatic("/web/", LittleFS, "/build"); 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->redirect("/web/index.html"); }); // redirect from / to /web/index.html
 

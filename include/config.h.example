@@ -1,4 +1,4 @@
 #pragma once
 
-extern const char* ssid = "YOUR_SSID";
-extern const char* password = "YOUR_PASSWORD";
+const char* ssid = "YOUR_SSID";
+const char* password = "YOUR_PASSWORD";
