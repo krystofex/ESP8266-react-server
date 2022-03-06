@@ -5,7 +5,8 @@
 #include <ESPAsyncTCP.h>
 #include "LittleFS.h" 
 
-#include "ESPAsyncWebServer.h"
+#include <ESPAsyncWebServer.h>
+#include <AsyncElegantOTA.h>
 
 #include "config.h"
 
@@ -61,14 +62,16 @@ void setup()
               digitalWrite(BUILTIN_LED, !ledStatus);
       
               String ledStatusString =  ledStatus ? "true" : "false"; // convert to string
-              String response = "{\"led\":\"" + ledStatusString + ",\"uptime\":\"" + String(millis() / 1000) +  "\"}";
+              String response = "{\"led\":" + ledStatusString + ",\"uptime\":" + String(millis() / 1000) +  "}";
               request->send(200, "application/json", response); 
           }
   );
 
+  AsyncElegantOTA.begin(&server);
   server.begin();
 }
 
 void loop()
 {
+  AsyncElegantOTA.loop();
 }

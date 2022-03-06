@@ -3,37 +3,38 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  const [led, setLed] = useState(false);
+  const [led, setLed] = useState(null);
 
   // fetch led data
   useEffect(() => {
+    console.log("fetching led data");
     axios.get("/api").then((res) => {
+      console.log(res);
       setLed(res.data.led);
     });
   }, []);
 
-  useEffect(() => {
-    axios.get("/api", { params: { led: led } });
-  }, [led]);
+  if (led === null)
+    return (
+      <div className="App">
+        <header className="App-header">loading...</header>
+      </div>
+    );
 
   return (
     <div className="App">
       <header className="App-header">
         <p>Led is {led ? "on" : "off"}</p>
         Turn
-        <a className="App-link" onClick={() => setLed(!led)}>
-          {led ? "off" : "on"}
-        </a>
-        <p>
-          Edit <code>react-app/src/App.js</code> and save to reload.
-        </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={() => {
+            const newLedVal = !led;
+            setLed(newLedVal);
+            axios.get("/api", { params: { led: newLedVal } });
+          }}
         >
-          Learn React
+          {led ? "off" : "on"}
         </a>
       </header>
     </div>
